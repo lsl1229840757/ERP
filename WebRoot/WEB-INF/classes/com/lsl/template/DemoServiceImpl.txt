@@ -1,0 +1,17 @@
+package com.lsl.service.impl;
+
+import com.lsl.dao.DemoDao;
+import com.lsl.model.Demo;
+import com.lsl.query.DemoQuery;
+import com.lsl.service.DemoService;
+
+public class DemoServiceImpl extends BaseServiceImpl<Demo, DemoQuery> implements DemoService {
+
+	private DemoDao demoDao;
+	
+	public void setDemoDao(DemoDao demoDao) {
+		this.demoDao = demoDao;
+		//当我们使用公用的dao的时候必须要一个具体的dao赋值给baseDao
+		this.baseDao = demoDao;
+	}
+}

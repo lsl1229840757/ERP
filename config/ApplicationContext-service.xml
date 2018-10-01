@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">  
+  <bean id="empService" class="com.lsl.service.impl.EmpServiceImpl"> 
+    <property name="empDao" ref="empDao"/> 
+    <property name="roleDao" ref="roleDao"/>
+  </bean>  
+  <bean id="depService" class="com.lsl.service.impl.DepServiceImpl"> 
+    <property name="depDao" ref="depDao"/> 
+  </bean>  
+  <bean id="supplierService" class="com.lsl.service.impl.SupplierServiceImpl"> 
+    <property name="supplierDao" ref="supplierDao"/> 
+  </bean>  
+  <bean id="productTypeService" class="com.lsl.service.impl.ProductTypeServiceImpl"> 
+    <property name="productTypeDao" ref="productTypeDao"/> 
+  </bean>  
+  <bean id="roleService" class="com.lsl.service.impl.RoleServiceImpl">
+    <property name="roleDao" ref="roleDao"/>
+  </bean>
+</beans>

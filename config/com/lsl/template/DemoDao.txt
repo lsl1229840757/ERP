@@ -1,0 +1,8 @@
+package com.lsl.dao;
+
+import com.lsl.model.Demo;
+import com.lsl.query.DemoQuery;
+
+public interface DemoDao extends BaseDao<Demo,DemoQuery> {
+	
+}

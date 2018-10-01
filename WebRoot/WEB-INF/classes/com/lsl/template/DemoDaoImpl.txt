@@ -1,0 +1,18 @@
+package com.lsl.dao.impl;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.lsl.dao.DemoDao;
+import com.lsl.model.Demo;
+import com.lsl.query.DemoQuery;
+
+public class DemoDaoImpl extends BaseDaoImpl<Demo, DemoQuery> implements DemoDao {
+
+	@Override
+	public String getHql(DemoQuery q) {
+		String hql = "from Demo d where 1=1";
+	
+		return hql;
+	}
+
+}

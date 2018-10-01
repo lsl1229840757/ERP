@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<!-- 配置开发者模式，修改热部署 -->
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- 设置Struts的UI,用于struts标签的显示 -->
+	<constant name="struts.ui.theme" value="simple"></constant>
+	
+	
+	<package name="erp" extends="struts-default">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="com.lsl.interceptor.LoginInterceptor">
+				<param name="excludeMethods">emp_login,emp_toLogin,ajax_emp_getImage</param>
+			</interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+	
+		<default-interceptor-ref name="myStack"></default-interceptor-ref>
+		
+		<global-results>
+			<result name="login">/WEB-INF/jsps/toLogin.jsp</result>
+		</global-results>
+	
+		<!-- 实现页面跳转的action -->
+		<action name="erp_*">
+			<result>/WEB-INF/jsps/{1}.jsp</result>
+		</action>
+		<!-- 这里使用spring进行管理,class使用spring的bean的名字 -->
+		<action name="emp_*" class="empAction" method="emp_{1}">
+			<result name="success">/WEB-INF/jsps/emp/{1}.jsp</result>
+			<result name="input">/WEB-INF/jsps/toLogin.jsp</result>
+			<result name="main" type="redirectAction">erp_main</result>
+			<result name="list" type="redirectAction">emp_list</result>
+		</action>	
+		
+		<action name="dep_*" class="depAction" method="dep_{1}">
+			<result name="success">/WEB-INF/jsps/dep/{1}.jsp</result>
+		</action>	
+		
+		
+		
+		<action name="role_*" class="roleAction" method="role_{1}">
+			<result name="success">/WEB-INF/jsps/role/{1}.jsp</result>
+		</action>	
+		<action name="ajax_emp_*" class="empAction" method="ajax_emp_{1}"/>	
+	</package>	
+</struts>
