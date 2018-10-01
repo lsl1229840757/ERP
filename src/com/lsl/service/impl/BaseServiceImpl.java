@@ -65,8 +65,6 @@ public class BaseServiceImpl<T,Q> implements BaseService<T,Q> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		return page;
 	}
 	

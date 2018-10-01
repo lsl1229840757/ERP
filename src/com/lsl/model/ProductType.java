@@ -6,7 +6,16 @@ package com.lsl.model;
 
 public class ProductType implements java.io.Serializable {
 
-	// Fields
+
+	private Supplier supplier;
+	
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
 
 	private Integer productTypeId;
 	private Integer supplierId;

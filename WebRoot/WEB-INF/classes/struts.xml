@@ -41,7 +41,9 @@
 			<result name="success">/WEB-INF/jsps/dep/{1}.jsp</result>
 		</action>	
 		
-		
+		<action name="productType_*" class="productTypeAction" method="productType_{1}">
+			<result name="success">/WEB-INF/jsps/productType/{1}.jsp</result>
+		</action>
 		
 		<action name="role_*" class="roleAction" method="role_{1}">
 			<result name="success">/WEB-INF/jsps/role/{1}.jsp</result>

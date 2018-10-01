@@ -51,7 +51,7 @@
 								<td><a class="hei" target="main" href="supplier/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;供应商</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="productType/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;商品类别</a></td>
+								<td><a class="hei" target="main" href="${path }/productType_list">&nbsp;&nbsp;&nbsp;&nbsp;商品类别</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="product/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;商品</a></td>

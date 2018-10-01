@@ -22,5 +22,4 @@ public class DemoQuery extends Demo {
 	public void setStartIndex(Integer startIndex) {
 		this.startIndex = startIndex;
 	}
-	
 }

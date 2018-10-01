@@ -1,0 +1,44 @@
+package com.lsl.controller;
+import com.lsl.query.DemoQuery;
+import com.lsl.service.DemoService;
+import com.lsl.utils.Page;
+import com.opensymphony.xwork2.ActionContext;
+
+public class DemoAction extends BaseAction {
+
+	private DemoService demoService;
+	
+	public void setDemoService(DemoService demoService) {
+		this.demoService = demoService;
+	}
+	
+	private DemoQuery query = new DemoQuery();
+	
+	public void setQuery(DemoQuery query) {
+		this.query = query;
+	}
+	
+	public DemoQuery getQuery() {
+		return query;
+	}
+	
+	public String demo_list(){
+		if(query.getPageNum()==null||query.getPageNum()<=0){
+			query.setPageNum(1);
+		}
+		
+		Page page = demoService.queryObjByCondition(query, super.exclude);
+		
+		ActionContext.getContext().put("page", page);
+		
+		return super.SUCCESS;
+	}
+
+	public String Demo_input(){
+		return super.SUCCESS;
+	}
+
+	public String Demo_changePwd(){
+		return super.SUCCESS;
+	}
+}
