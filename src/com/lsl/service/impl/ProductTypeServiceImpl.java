@@ -14,4 +14,9 @@ public class ProductTypeServiceImpl extends BaseServiceImpl<ProductType, Product
 		//当我们使用公用的dao的时候必须要一个具体的dao赋值给baseDao
 		this.baseDao = productTypeDao;
 	}
+
+	@Override
+	public ProductType getProductTypeBySupplierId(ProductType pt) {
+		return productTypeDao.getProductTypeBySupplierId(pt);
+	}
 }

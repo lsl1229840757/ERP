@@ -3,8 +3,6 @@ package com.lsl.query;
 import com.lsl.model.Supplier;
 
 public class SupplierQuery extends Supplier {
-
-
 	private Integer pageNum;
 	
 	public Integer getPageNum() {
@@ -24,5 +22,4 @@ public class SupplierQuery extends Supplier {
 	public void setStartIndex(Integer startIndex) {
 		this.startIndex = startIndex;
 	}
-	
 }

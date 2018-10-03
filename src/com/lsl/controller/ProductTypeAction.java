@@ -1,6 +1,7 @@
 package com.lsl.controller;
 import java.util.List;
 
+import com.lsl.model.ProductType;
 import com.lsl.model.Supplier;
 import com.lsl.query.ProductTypeQuery;
 import com.lsl.service.ProductTypeService;
@@ -10,6 +11,15 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class ProductTypeAction extends BaseAction {
 	
+	private ProductType productType;
+	
+	public ProductType getProductType() {
+		return productType;
+	}
+
+	public void setProductType(ProductType productType) {
+		this.productType = productType;
+	}
 
 	private ProductTypeService productTypeService;
 	
@@ -54,7 +64,23 @@ public class ProductTypeAction extends BaseAction {
 		return super.SUCCESS;
 	}
 
-	public String ProductType_input(){
+	public String productType_input(){
+		//得到全部的供應商
+		List<Supplier> list = supplierService.list();
+		ActionContext.getContext().put("list", list);
 		return super.SUCCESS;
+	}
+	
+	public void validateAjax_productType_add(){
+		ProductType prod = null;
+		prod = productTypeService.getProductTypeBySupplierId(productType);
+		if(prod != null){
+			this.addFieldError("tip","该商品类型已经存在!");
+		}
+	}
+	
+	public void ajax_productType_add () throws Exception{
+		productTypeService.save(productType);
+		response.getWriter().print("success");
 	}
 }

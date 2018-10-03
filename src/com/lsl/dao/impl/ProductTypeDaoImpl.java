@@ -1,6 +1,7 @@
 package com.lsl.dao.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Query;
 
 import com.lsl.dao.ProductTypeDao;
 import com.lsl.model.ProductType;
@@ -11,7 +12,7 @@ public class ProductTypeDaoImpl extends BaseDaoImpl<ProductType, ProductTypeQuer
 	@Override
 	public String getHql(ProductTypeQuery q) {
 		String hql = "from ProductType d where 1=1";
-		hql = createHqlCondition(hql, q);
+		hql = createHqlCondition(hql, q)+" order by d.productTypeId desc";
 		return hql;
 	}
 
@@ -32,6 +33,17 @@ public class ProductTypeDaoImpl extends BaseDaoImpl<ProductType, ProductTypeQuer
 			hql += " and d.supplier.supplierId = :supplierId";
 		}
 		return hql;
+	}
+
+	@Override
+	public ProductType getProductTypeBySupplierId(ProductType pt) {
+		// TODO 这里有设计上面的Bug
+		String hql = "from ProductType p where p.supplier.supplierId = :supplierId and p.name = :name";
+		Query query = this.getSessionFactory().getCurrentSession().createQuery(hql);
+		query.setInteger("supplierId", pt.getSupplier().getSupplierId());
+		query.setString("name", pt.getName());
+		ProductType result = (ProductType)query.uniqueResult();
+		return result;
 	}
 
 }

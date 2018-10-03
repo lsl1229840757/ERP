@@ -13,11 +13,11 @@
   <bean id="roleAction" class="com.lsl.controller.RoleAction" scope="prototype"> 
     <property name="roleService" ref="roleService"/> 
   </bean>  
-  <bean id="supplierAction" class="com.lsl.controller.SupplierAction" scope="prototype"> 
+  <bean id="productTypeAction" class="com.lsl.controller.ProductTypeAction" scope="prototype"> 
+    <property name="productTypeService" ref="productTypeService"/>  
     <property name="supplierService" ref="supplierService"/> 
   </bean>  
-  <bean id="productTypeAction" class="com.lsl.controller.ProductTypeAction" scope="prototype"> 
-    <property name="productTypeService" ref="productTypeService"/> 
-    <property name="supplierService" ref="supplierService"></property>
-  </bean>  
+  <bean id="supplierAction" class="com.lsl.controller.SupplierAction" scope="prototype">
+    <property name="supplierService" ref="supplierService"/>
+  </bean>
 </beans>

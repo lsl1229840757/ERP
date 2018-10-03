@@ -5,4 +5,5 @@ import com.lsl.query.ProductTypeQuery;
 
 public interface ProductTypeDao extends BaseDao<ProductType,ProductTypeQuery> {
 	
+	public ProductType getProductTypeBySupplierId(ProductType pt);
 }

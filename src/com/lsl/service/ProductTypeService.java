@@ -4,4 +4,7 @@ import com.lsl.model.ProductType;
 import com.lsl.query.ProductTypeQuery;
 
 public interface ProductTypeService extends BaseService<ProductType, ProductTypeQuery> {
+	
+	public ProductType getProductTypeBySupplierId(ProductType pt);
+	
 }

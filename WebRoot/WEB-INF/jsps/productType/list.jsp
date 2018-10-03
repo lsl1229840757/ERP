@@ -5,6 +5,25 @@
 		$("#query").click(function() {
 			$("form:first").submit();
 		});
+		
+		$("#addPt").click(function(){
+			var diag = new Dialog();
+			diag.Width = 850;
+			diag.Height = 450;
+			diag.Title = "添加商品类别";
+			diag.URL = path+"/productType_input";
+			diag.OKEvent = function(){
+			//调用子页面的bom对象
+				var bom = diag.innerFrame.contentWindow;
+				//提交表单,加验证			
+				if(bom.submitForm()=="success"){
+					//提交表单成功!
+					diag.close();
+					window.location.href = "${path}/productType_list";
+				}
+			};
+			diag.show();
+		});
 	});
 </script>
 <div class="content-right">
@@ -31,8 +50,8 @@
 						</td>
 						<td width="70"><a id="query"> <img
 								src="${path}/images/can_b_01.gif" border="0" /> </a></td>
-						<td width="70"><a href="./input.jsp"><img
-								src="${path}/images/can_b_02.gif" border="0" /> </a></td>
+						<td width="70"><a href="javascript:void(0);"><img
+								src="${path}/images/can_b_02.gif" border="0" id = "addPt"/> </a></td>
 					</tr>
 				</table>
 			</div>

@@ -34,11 +34,7 @@ public class DemoAction extends BaseAction {
 		return super.SUCCESS;
 	}
 
-	public String Demo_input(){
-		return super.SUCCESS;
-	}
-
-	public String Demo_changePwd(){
+	public String demo_input(){
 		return super.SUCCESS;
 	}
 }

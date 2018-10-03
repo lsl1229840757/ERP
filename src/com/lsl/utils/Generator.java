@@ -12,24 +12,27 @@ import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
 import jxl.read.biff.File;
-
+/**
+ * 
+ * @author lsl
+ *	´úÂëÉú³ÉÆ÷
+ *
+ */
 public class Generator {
 
 	public static void main(String[] args) throws Exception  {
 		generall("Supplier");
-		generall("ProductType");
-		generall("Role");
 	}
 
 	
 	public static void generall(String name) throws Exception{
-		/*generDao(name);
+		generDao(name);
 		generQuery(name);
 		generDaoImpl(name);
 		generService(name);
 		generServiceImpl(name);
 		generDaoConfig(name);
-		generServiceConfig(name);*/
+		generServiceConfig(name);
 		generAction(name);
 		generActionConfig(name);
 	}

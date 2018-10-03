@@ -11,20 +11,19 @@ public class SupplierDaoImpl extends BaseDaoImpl<Supplier, SupplierQuery> implem
 	@Override
 	public String getHql(SupplierQuery q) {
 		String hql = "from Supplier d where 1=1";
-		//hql = createHqlCondition(hql, q);
+		hql = createHqlCondition(hql, q);
 		return hql;
 	}
 
 	@Override
 	public String getHqlCount(SupplierQuery q) {
-		//TODO 这里还有没有写
-		
-		return null;
+		String hql = "select count(d.supplierId) where 1 = 1";
+		hql = createHqlCondition(hql, q);
+		return hql;
 	}
 
 	@Override
 	public String createHqlCondition(String hql, SupplierQuery q) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

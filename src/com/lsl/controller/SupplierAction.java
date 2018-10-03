@@ -34,11 +34,8 @@ public class SupplierAction extends BaseAction {
 		return super.SUCCESS;
 	}
 
-	public String Supplier_input(){
+	public String supplier_input(){
 		return super.SUCCESS;
 	}
 
-	public String Supplier_changePwd(){
-		return super.SUCCESS;
-	}
 }
