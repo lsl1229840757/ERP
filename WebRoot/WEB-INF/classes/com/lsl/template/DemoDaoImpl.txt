@@ -16,13 +16,13 @@ public class DemoDaoImpl extends BaseDaoImpl<Demo, DemoQuery> implements DemoDao
 	}
 
 	@Override
-	public String getHqlCount(SupplierQuery q) {
+	public String getHqlCount(DemoQuery q) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public String createHqlCondition(String hql, SupplierQuery q) {
+	public String createHqlCondition(String hql, DemoQuery q) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -27,5 +27,9 @@
                 <comment>如果是1，那么是送货，如果是2那么是自提</comment>
             </column>
         </property>
+        <set name="pts" table="product_type">
+        	<key column="supplier_id"></key>
+        	<one-to-many class="com.lsl.model.ProductType"></one-to-many>
+        </set>
     </class>
 </hibernate-mapping>

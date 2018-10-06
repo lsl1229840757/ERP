@@ -17,4 +17,7 @@
   <bean id="roleService" class="com.lsl.service.impl.RoleServiceImpl"> 
     <property name="roleDao" ref="roleDao"/> 
   </bean>  
+  <bean id="productService" class="com.lsl.service.impl.ProductServiceImpl">
+    <property name="productDao" ref="productDao"/>
+  </bean>
 </beans>

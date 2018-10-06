@@ -13,6 +13,8 @@
 	<mapping resource="com/lsl/mapper/Supplier.hbm.xml" />
 	<mapping resource="com/lsl/mapper/ProductType.hbm.xml" />
 	<mapping resource="com/lsl/mapper/Role.hbm.xml" />
+	<mapping resource="com/lsl/mapper/Product.hbm.xml" />
+	<mapping resource="com/lsl/mapper/OrderModel.hbm.xml" />
 </session-factory>
 
 </hibernate-configuration>

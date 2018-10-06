@@ -44,15 +44,19 @@
 		<action name="productType_*" class="productTypeAction" method="productType_{1}">
 			<result name="success">/WEB-INF/jsps/productType/{1}.jsp</result>
 		</action>
+
+		<action name="product_*" class="productAction" method="product_{1}">
+			<result name="success">/WEB-INF/jsps/product/{1}.jsp</result>
+		</action>
 		
 		<action name="role_*" class="roleAction" method="role_{1}">
 			<result name="success">/WEB-INF/jsps/role/{1}.jsp</result>
 		</action>	
 		<action name="ajax_emp_*" class="empAction" method="ajax_emp_{1}"/>
-		
-		
 		<action name="ajax_productType_*" class="productTypeAction" method="ajax_productType_{1}">
 			<result name="input" type="chain">productType_input</result>
+		</action>	
+		<action name="ajax_product_*" class="productAction" method="ajax_product_{1}">
 		</action>	
 	</package>	
 </struts>

@@ -1,22 +1,31 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib prefix="s" uri="/struts-tags"%>
-<link href="../../css/index.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.8.3.js"></script>
-<script type="text/javascript" src="../../js/Calendar.js"></script>
+<%@ include file="../taglibs.jsp" %>
 <script type="text/javascript">
 	$(function() {
+		$("#addProduct").click(function(){
+			var diag = new Dialog();
+			diag.Width = 850;
+			diag.Height = 450;
+			diag.Title = "商品添加";
+			diag.URL = path+"/product_input";
+			diag.OKEvent = function(){
+			//调用子页面的bom对象
+				var bom = diag.innerFrame.contentWindow;
+				//提交表单,加验证			
+				if(bom.submitForm()=="success"){
+					//提交表单成功!
+					diag.close();
+					window.location.href = "${path}/product_list";
+				}
+			};
+			diag.show();
+		});
+	
+	
 		$("#query").click(function() {
-			$("[name='pageNum']").val(1);
 			$("form:first").submit();
 		});
 	});
-	function showMsg(msg,uuid){
-		//top.document.getElementById("context-msg").style.display = "block";
-		top.$('context-msg').style.display = "block";
-		top.$('context-msg-text').innerHTML=msg;
-		top.$('hid-action').value="actionName";
-		top.lock.show();
-	}
 </script>
 <div class="content-right">
 	<div class="content-r-pic_w">
@@ -25,37 +34,33 @@
 		</div>
 	</div>
 	<div class="content-text">
-		<form action="list.jsp" method="post"> 
+		<form action="${path }/product_list" method="post"> 
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
 					<tr>
 						<td>供应商:</td>
 						<td>
-							<select style="width:113px">
-								<option value="-1">----请-选-择----</option>
-								<option value="1">康师傅</option>
-								<option value="2">七匹狼</option>
-							</select>
+							<s:select list="#list" cssStyle="width:113px" name="query.supplierId" headerKey="" headerValue="----请-选-择----" listKey="supplierId" listValue="name"></s:select>
 						</td>
 						<td height="30">商&nbsp;品&nbsp;名</td>
-						<td><input type="text" size="14" /></td>
+						<td><s:textfield size="14" name = "query.name"></s:textfield></td>
 						<td>生产厂家</td>
-						<td><input type="text" size="14" /></td>
+						<td><s:textfield size="14" name = "query.producer"></s:textfield></td>
 						<td>单&nbsp;&nbsp;&nbsp;&nbsp;位</td>
-						<td><input type="text" size="14" /></td>
-						<td width="70"><a href="./input.jsp"><img src="../../images/can_b_02.gif" border="0" /> </a></td>
+						<td><s:textfield size="14" name = "query.unit"></s:textfield></td>
+						<td width="70"><a href="javascript:void(0);"><img src="${path}/images/can_b_02.gif" border="0"  id = "addProduct"/> </a></td>
 					</tr>
 					<tr>
 						<td height="30">进货价格</td>
-						<td><input type="text" size="14" /></td>
+						<td><s:textfield size="14" name = "query.minInPrice"></s:textfield></td>
 						<td>到</td>
-						<td><input type="text" size="14" /></td>
+						<td><s:textfield size="14" name = "query.maxInPrice"></s:textfield></td>
 						<td height="30">销售价格</td>
-						<td><input type="text" size="14" /></td>
+						<td><s:textfield size="14" name = "query.minOutPrice"></s:textfield></td>
 						<td>到</td>
-						<td><input type="text" size="14" /></td>
-						<td><a id="query"> <img src="../../images/can_b_01.gif" border="0" /> </a></td>
+						<td><s:textfield size="14" name = "query.maxOutPrice"></s:textfield></td>
+						<td><a id="query"> <img src="${path}/images/can_b_01.gif" border="0" /> </a></td>
 					</tr>
 				</table>
 			</div>
@@ -63,7 +68,7 @@
 			<div class="square-order">
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
-						style="background:url(../../images/table_bg.gif) repeat-x;">
+						style="background:url(${path}/images/table_bg.gif) repeat-x;">
 						<td width="12%" height="30">供应商</td>
 						<td width="12%">商品名</td>
 						<td width="12%">生产厂家</td>
@@ -73,26 +78,30 @@
 						<td width="12%">单位</td>
 						<td width="16%">操作</td>
 					</tr>
-						<tr align="center" bgcolor="#FFFFFF">
-							<td width="13%" height="30">七匹狼</td>
-							<td>黑色狼皮大衣</td>
-							<td>七匹狼服饰</td>
-							<td>金华</td>
-							<td align="right">118.00&nbsp;元&nbsp;</td>
-							<td align="right">148.00&nbsp;元&nbsp;</td>
-							<td>件</td>
+						<s:iterator value="#page.list" var="p">
+							<tr align="center" bgcolor="#FFFFFF">
+							
+							<td width="13%" height="30"><s:property value="#p.productType.supplier.name"/></td>
+							<td><s:property value="#p.name"/></td>
+							<td><s:property value="#p.producer"/></td>
+							<td><s:property value="#p.origin"/></td>
+							<td align="right"><s:property value="#p.inPrice"/>&nbsp;元&nbsp;</td>
+							<td align="right"><s:property value="#p.outPrice"/>&nbsp;元&nbsp;</td>
+							<td><s:property value="#p.unit"/></td>
 							<td>
-								<img src="../../images/icon_3.gif" /> 
+								<img src="${path}/images/icon_3.gif"/> 
 								<span style="line-height:12px; text-align:center;"> 
 									<a href="./input.jsp" class="xiu">修改</a> 
 								</span> 
-								<img src="../../images/icon_04.gif" /> 
+								<img src="${path}/images/icon_04.gif" /> 
 								<span style="line-height:12px; text-align:center;"> 
 									<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
 								</span>
 							</td>
-						</tr>
+							</tr>
+						</s:iterator>
 				</table>
+				<jsp:include page="../tools/paging.jsp"></jsp:include>
 			</div>
 		</form>
 	</div>

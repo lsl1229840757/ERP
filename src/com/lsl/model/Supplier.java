@@ -1,5 +1,7 @@
 package com.lsl.model;
 
+import java.util.Set;
+
 /**
  * Supplier entity. @author MyEclipse Persistence Tools
  */
@@ -14,11 +16,21 @@ public class Supplier implements java.io.Serializable {
 	private String contact;
 	private String tel;
 	private Integer needs;
-
+	private Set<ProductType> pts;
+	
 	// Constructors
+	
 
 	/** default constructor */
 	public Supplier() {
+	}
+
+	public Set<ProductType> getPts() {
+		return pts;
+	}
+
+	public void setPts(Set<ProductType> pts) {
+		this.pts = pts;
 	}
 
 	/** full constructor */

@@ -54,7 +54,7 @@
 								<td><a class="hei" target="main" href="${path }/productType_list">&nbsp;&nbsp;&nbsp;&nbsp;商品类别</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="product/list.jsp">&nbsp;&nbsp;&nbsp;&nbsp;商品</a></td>
+								<td><a class="hei" target="main" href="${path }/product_list">&nbsp;&nbsp;&nbsp;&nbsp;商品</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="#">采购管理</a></td>
