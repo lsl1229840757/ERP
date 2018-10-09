@@ -13,9 +13,9 @@
         <property name="orderNum" type="java.lang.String">
             <column name="order_num" length="30" />
         </property>
-        <property name="creater" type="java.lang.Integer">
+       <!--  <property name="creater" type="java.lang.Integer">
             <column name="creater" />
-        </property>
+        </property> -->
         <property name="createTime" type="java.util.Date">
             <column name="create_time" length="10" />
         </property>
@@ -43,8 +43,7 @@
         <property name="totalPrice" type="java.lang.Double">
             <column name="total_price" precision="10" />
         </property>
-        <property name="supplierId" type="java.lang.Integer">
-            <column name="supplier_id" />
-        </property>
+        <many-to-one name="supplier" class="com.lsl.model.Supplier" column="supplier_id"></many-to-one>
+        <many-to-one name="creatorEmp" class="com.lsl.model.Emp" column="creater"></many-to-one>
     </class>
 </hibernate-mapping>

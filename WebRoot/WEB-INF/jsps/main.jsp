@@ -60,7 +60,7 @@
 								<td><a class="hei" target="main" href="#">采购管理</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="order/buy/buyList.jsp">&nbsp;&nbsp;&nbsp;&nbsp;采购订单</a></td>
+								<td><a class="hei" target="main" href="${path }/orderModel_list?query.orderType=1">&nbsp;&nbsp;&nbsp;&nbsp;采购订单</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" >&nbsp;&nbsp;&nbsp;&nbsp;采购退货</a></td>

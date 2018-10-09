@@ -17,7 +17,10 @@
   <bean id="roleService" class="com.lsl.service.impl.RoleServiceImpl"> 
     <property name="roleDao" ref="roleDao"/> 
   </bean>  
-  <bean id="productService" class="com.lsl.service.impl.ProductServiceImpl">
-    <property name="productDao" ref="productDao"/>
+  <bean id="productService" class="com.lsl.service.impl.ProductServiceImpl"> 
+    <property name="productDao" ref="productDao"/> 
+  </bean>  
+  <bean id="orderModelService" class="com.lsl.service.impl.OrderModelServiceImpl">
+    <property name="orderModelDao" ref="orderModelDao"/>
   </bean>
 </beans>

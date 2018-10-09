@@ -16,7 +16,10 @@
   <bean id="supplierDao" class="com.lsl.dao.impl.SupplierDaoImpl"> 
     <property name="sessionFactory" ref="sessionFactory"/> 
   </bean>  
-  <bean id="productDao" class="com.lsl.dao.impl.ProductDaoImpl">
+  <bean id="productDao" class="com.lsl.dao.impl.ProductDaoImpl"> 
+    <property name="sessionFactory" ref="sessionFactory"/> 
+  </bean>  
+  <bean id="orderModelDao" class="com.lsl.dao.impl.OrderModelDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
 </beans>

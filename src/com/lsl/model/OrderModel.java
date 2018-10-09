@@ -23,8 +23,27 @@ public class OrderModel implements java.io.Serializable {
 	private Integer totalNum;
 	private Double totalPrice;
 	private Integer supplierId;
+	private Emp creatorEmp;
+	private Supplier supplier;
+	
 
 	// Constructors
+
+	public Supplier getSupplier() {
+		return supplier;
+	}
+
+	public void setSupplier(Supplier supplier) {
+		this.supplier = supplier;
+	}
+
+	public Emp getCreatorEmp() {
+		return creatorEmp;
+	}
+
+	public void setCreatorEmp(Emp creatorEmp) {
+		this.creatorEmp = creatorEmp;
+	}
 
 	/** default constructor */
 	public OrderModel() {
