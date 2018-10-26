@@ -60,6 +60,9 @@ public class OrderModelDaoImpl extends BaseDaoImpl<OrderModel, OrderModelQuery> 
 		if(q.getSupplierId()!= null){
 			hql += " and d.supplier.supplierId = :supplierId";
 		}
+		if(q.getOrderState()!=null){
+			hql += " and d.orderState = :orderState";
+		}
 		return hql;
 	}
 

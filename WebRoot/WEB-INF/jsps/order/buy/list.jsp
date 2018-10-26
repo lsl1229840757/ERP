@@ -6,6 +6,15 @@
 		$("#query").click(function() {
 			$("form:first").submit();
 		});
+		
+		var orderSate = $("#orderState").val();
+		if(orderSate=="1"){
+			$("#li1").css("background","#01E401")
+		}else if(orderSate=="2"){
+			$("#li2").css("background","#01E401")
+		}else if(orderSate=="3"){
+			$("#li3").css("background","#01E401")
+		}
 	});
 </script>
 <style>
@@ -19,9 +28,6 @@ li{
 	text-align: center;
 	font-size: 13px;
 }
-	
-	
-
 </style>
 <div class="content-right">
 	<div class="content-r-pic_w">
@@ -31,7 +37,7 @@ li{
 	</div>
 	<div class="content-text">
 		<form action="${path }/orderModel_list" method="post"> 
-			<input type="hidden" name="query.orderType" value="<s:property value = 'query.orderType'/>">
+			
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
@@ -48,6 +54,9 @@ li{
 						</td>
 					</tr>
 					<tr>
+						<!-- 提供查询订单类型和状态的隐藏域,让每一次表单的提交在提个tab之中完成 -->
+						<input type="hidden" name="query.orderType" value="<s:property value = 'query.orderType'/>">
+						<input type="hidden" id="orderState" name="query.orderState" value="<s:property value="query.orderState"/>"/>
 						<td>下单时间:</td>
 						<td>
 							<input name="query.minCreateTime" type="text" size="14" onfocus="c.showMoreDay=false;c.show(this);" readonly="true"/>
@@ -71,11 +80,10 @@ li{
 			<!--"square-o-top"end-->
 			<div class="square-order">
 				<ul>
-					<li style="background: #01E401"><a style="text-decoration: none" href='#'>未审核</a></li>	
-					<li><a style="text-decoration: none" href='#'>审核通过</a></li>	
-					<li><a style="text-decoration: none" href='#'>审核未通过</a></li>	
+					<li id="li1"><a style="text-decoration: none" href='${path }/orderModel_list?query.orderType=1&query.orderState=1'>未审核</a></li>	
+					<li id="li2"><a style="text-decoration: none" href='${path }/orderModel_list?query.orderType=1&query.orderState=2'>审核通过</a></li>	
+					<li id="li3"><a style="text-decoration: none" href='${path }/orderModel_list?query.orderType=1&query.orderState=3'>审核未通过</a></li>	
 				</ul>
-				
 				<table width="100%" border="1" cellpadding="0" cellspacing="0">
 					<tr align="center"
 						style="background:url(${path}/images/table_bg.gif) repeat-x;">
