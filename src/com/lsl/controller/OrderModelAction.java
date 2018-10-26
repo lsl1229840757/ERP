@@ -1,13 +1,28 @@
 package com.lsl.controller;
+import com.lsl.model.OrderModel;
 import com.lsl.query.OrderModelQuery;
 import com.lsl.service.OrderModelService;
 import com.lsl.utils.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class OrderModelAction extends BaseAction {
+	
+	private OrderModel order = new OrderModel();
 
 	private OrderModelService orderModelService;
 	
+	public OrderModel getOrder() {
+		return order;
+	}
+
+	public void setOrder(OrderModel order) {
+		this.order = order;
+	}
+
+	public OrderModelService getOrderModelService() {
+		return orderModelService;
+	}
+
 	public void setOrderModelService(OrderModelService orderModelService) {
 		this.orderModelService = orderModelService;
 	}
@@ -37,4 +52,10 @@ public class OrderModelAction extends BaseAction {
 	public String orderModel_input(){
 		return super.SUCCESS;
 	}
+	
+	public String orderModel_orderDetails(){
+		order = orderModelService.getObjById(query.getOrderId());
+		return SUCCESS;
+	}
+	
 }

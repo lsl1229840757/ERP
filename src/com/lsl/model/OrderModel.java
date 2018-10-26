@@ -1,6 +1,7 @@
 package com.lsl.model;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * OrderModel entity. @author MyEclipse Persistence Tools
@@ -25,9 +26,17 @@ public class OrderModel implements java.io.Serializable {
 	private Integer supplierId;
 	private Emp creatorEmp;
 	private Supplier supplier;
+	private Set<OrderDetail> details;
 	
-
 	// Constructors
+
+	public Set<OrderDetail> getDetails() {
+		return details;
+	}
+
+	public void setDetails(Set<OrderDetail> details) {
+		this.details = details;
+	}
 
 	public Supplier getSupplier() {
 		return supplier;

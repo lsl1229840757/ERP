@@ -20,7 +20,10 @@
   <bean id="productService" class="com.lsl.service.impl.ProductServiceImpl"> 
     <property name="productDao" ref="productDao"/> 
   </bean>  
-  <bean id="orderModelService" class="com.lsl.service.impl.OrderModelServiceImpl">
-    <property name="orderModelDao" ref="orderModelDao"/>
+  <bean id="orderModelService" class="com.lsl.service.impl.OrderModelServiceImpl"> 
+    <property name="orderModelDao" ref="orderModelDao"/> 
+  </bean>  
+  <bean id="orderDetailService" class="com.lsl.service.impl.OrderDetailServiceImpl">
+    <property name="orderDetailDao" ref="orderDetailDao"/>
   </bean>
 </beans>

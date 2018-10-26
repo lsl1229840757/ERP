@@ -19,7 +19,10 @@
   <bean id="productDao" class="com.lsl.dao.impl.ProductDaoImpl"> 
     <property name="sessionFactory" ref="sessionFactory"/> 
   </bean>  
-  <bean id="orderModelDao" class="com.lsl.dao.impl.OrderModelDaoImpl">
+  <bean id="orderModelDao" class="com.lsl.dao.impl.OrderModelDaoImpl"> 
+    <property name="sessionFactory" ref="sessionFactory"/> 
+  </bean>  
+  <bean id="orderDetailDao" class="com.lsl.dao.impl.OrderDetailDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
 </beans>

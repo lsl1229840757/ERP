@@ -16,6 +16,16 @@
 			$("#li3").css("background","#01E401")
 		}
 	});
+	function viewDetails(orderId){
+		var diag = new Dialog();
+			diag.Width = 850;
+			diag.Height = 450;
+			diag.Title = "订单明细";
+			diag.URL = path+"/orderModel_orderDetails?query.orderId="+orderId;
+			diag.OKEvent = function(){
+			};
+			diag.show();
+	}
 </script>
 <style>
 li{
@@ -106,7 +116,7 @@ li{
 							<td><s:property value="#order.totalNum"/></td>
 							<td align="right"><s:property value="#order.totalPrice"/>元</td>
 							<td>
-								<a href="inDetailList.jsp" class="xiu">详情</a>
+								<a href="#" onclick="viewDetails(<s:property value="#order.orderId"/>)" class="xiu">详情</a>
 							</td>
 							<td>未审核</td>
 						</tr>

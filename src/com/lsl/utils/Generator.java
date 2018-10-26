@@ -21,7 +21,7 @@ import jxl.read.biff.File;
 public class Generator {
 
 	public static void main(String[] args) throws Exception  {
-		generall("OrderModel");
+		generall("OrderDetail");
 	}
 
 	
