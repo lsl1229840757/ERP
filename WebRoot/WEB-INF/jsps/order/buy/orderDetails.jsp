@@ -23,9 +23,11 @@
 					</tr>
 					<tr>
 						<td height="30">订单类别:</td>
-						<td class="order_show_msg">采购|待处理</td>
+						<!-- tld设置支持el表达式 -->
+						<td class="order_show_msg"><e:orderTypeText orderType="${order.orderType }"></e:orderTypeText></td>
 						<td>订单状态:</td>
-						<td class="order_show_msg">未审核|待处理</td>
+						
+						<td class="order_show_msg"><e:orderStateText orderType="${order.orderType }" orderState="${order.orderState }"></e:orderStateText></td>
 						<td>商品总量:</td>
 						<td class="order_show_msg"><s:property value="order.totalNum"/></td>
 						<td>订单总额:</td>
