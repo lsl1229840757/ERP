@@ -4,8 +4,15 @@
 <script type="text/javascript">
 	//修改供应商
 	$(function() {
+		//添加add点击事件
+		$("#add").click(function(){
+			var tr = $("#defaultTr").clone(true);//带事件的克隆
+			tr.find(".goods").empty();
+			$("#finalTr").before(tr);
+		});
+	
 		$("#supplierSelect").change(function(){
-			var pro = $("#productType");
+			var pro = $("#defaultTr").find(".goodsType"); //此处存在bug
 			pro.empty();
 			//二级联动发送ajax
 			$.ajax({
@@ -23,36 +30,59 @@
 				},
 				error:function(jsonArr){
 					alert("XmlRequest Error!");
-					alert(Object.keys(jsonArr));
-					alert(jsonArr.status);
-					console.log(jsonArr.responseText);
 				}
 			});
 			$(this).attr("disabled","diabled");
 		});
 		
-		$("#productType").change(function(){
-			var pro = $("#product");
+		$(".goods").change(function(){
+			var tableObj = $(this).parent().parent().parent();
+			var nowProductId = $(this).val();
+			//注意这里tableObj在find之后 也会把自己找到
+			var count = 0; 
+			tableObj.find(".goods").each(function(){
+				if(nowProductId==$(this).val()){
+					count++;
+				}
+			});
+			if(count==2){
+				Dialog.alert("该商品已经存在！");
+				$(this).find("[value="+nowProductId+"]").remove();
+			}
+		});
+		$(".goodsType").change(function(){
+			var trObj = $(this).parent().parent();
+			var pro = trObj.find(".goods");
 			pro.empty();
 			//二级联动发送ajax
 			$.ajax({
 				url:"${path}/ajax_productType_getProduct",
 				data:{
-					"query.productTypeId" : $("#productType").val()
+					"query.productTypeId" :trObj.find(".goodsType").val()
 				},
 				type:"post",
 				dataType:"json",
 				async: false,
 				success:function(jsonArr){
 					for(i = 0;i<jsonArr.length;i++){
-					pro.append("<option value='"+jsonArr[i].productTypeId+"'>"+jsonArr[i].name+"</option>")
+						//防止生成数据的时候出现相同的商品
+						var isExit = false;
+						trObj.parent().find(".goods").each(function(){//多次dom操作可以改进
+							var productId = $(this).val();
+							if(jsonArr[i].productId+"" == productId){
+								isExit = true;
+								return;
+							}					
+						});
+						if(!isExit){
+							pro.append("<option value='"+jsonArr[i].productId+"'>"+jsonArr[i].name+"</option>");
+						}
 					}
 				},
 				error:function(){
 					alert("XmlRequest Error!");
 				}
 			});
-			$(this).attr("disabled","diabled");	
 		});
 	});
 </script>
@@ -70,7 +100,7 @@
 					<tr>
 						<td width="68px" height="30">供应商：</td>
 						<td width="648px">
-							<s:select id="supplierSelect" list="#suppliers" cssClass="kuan" cssStyle="width:300px;" listKey="supplierId" listValue="name"></s:select>
+							<s:select id="supplierSelect" headerKey="" headerValue="请选择" list="#suppliers" cssClass="kuan" cssStyle="width:300px;" listKey="supplierId" listValue="name"></s:select>
 						</td>
 						<td height="30">
 							<a id="add"><img src="${path}/images/can_b_02.gif" border="0" /> </a>
@@ -90,7 +120,7 @@
 						<td width="15%">合计</td>
 						<td width="10%">操作</td>
 					</tr>
-					<tr align="center" bgcolor="#FFFFFF">
+					<tr id="defaultTr" align="center" bgcolor="#FFFFFF">
 						<td height="30">
 							<select id="productType" class="goodsType" style="width:200px">
 							</select>
