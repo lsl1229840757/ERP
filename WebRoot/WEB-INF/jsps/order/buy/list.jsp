@@ -15,6 +15,19 @@
 		}else if(orderSate=="3"){
 			$("#li3").css("background","#01E401")
 		}
+		
+		
+		$("#addOrder").click(function(){
+			var diag = new Dialog();
+			diag.Width = 850;
+			diag.Height = 450;
+			diag.Title = "下采购";
+			diag.URL = path+"/orderModel_input";
+			diag.OKEvent = function(){
+			};
+			diag.show();
+		});
+		
 	});
 	function viewDetails(orderId){
 		var diag = new Dialog();
@@ -80,7 +93,7 @@ li{
 						<td>到</td>
 						<td>&nbsp;&nbsp;<s:textfield size="14" name="query.maxTotalPrice"></s:textfield></td>
 						<td>
-							<a href="./buyInput.jsp">
+							<a id="addOrder" href="javascript:void(0);">
 								<img src="${path}/images/can_b_02.gif" border="0" /> 
 							</a>
 						</td>

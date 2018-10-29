@@ -80,9 +80,9 @@ public class ProductAction extends BaseAction {
 	public void ajax_product_changeSupplier(){
 		Supplier supplier = supplierService.getObjById(query.getSupplierId());
 		Set<ProductType> pts = supplier.getPts();
-		JsonArrayUtils.getProductsBySupplier(response, pts, new String[]{"supplier"});
+		JsonArrayUtils.getProductsBySupplier(response, pts, new String[]{"supplier","products"});
 	}
-	public void ajax_product_add () throws Exception{
+	public void ajax_product_add() throws Exception{
 		productService.save(product);
 		response.getWriter().print("success");
 	}

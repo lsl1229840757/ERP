@@ -14,5 +14,10 @@
         <many-to-one name="supplier" class="com.lsl.model.Supplier">
         	<column name="supplier_id"></column>
         </many-to-one>
+        <!-- 设置一对多的关系 -->
+        <set name="products" table="product">
+        	<key column="product_type_id"></key>
+        	<one-to-many class="com.lsl.model.Product"/>
+        </set>
     </class>
 </hibernate-mapping>

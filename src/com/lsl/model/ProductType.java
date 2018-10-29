@@ -1,11 +1,22 @@
 package com.lsl.model;
 
+import java.util.Set;
+
 /**
  * ProductType entity. @author MyEclipse Persistence Tools
  */
 
 public class ProductType implements java.io.Serializable {
 
+	private Set<Product> products;
+
+	public Set<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(Set<Product> products) {
+		this.products = products;
+	}
 
 	private Supplier supplier;
 	

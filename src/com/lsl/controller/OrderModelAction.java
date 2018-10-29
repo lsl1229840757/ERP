@@ -2,15 +2,27 @@ package com.lsl.controller;
 import com.lsl.model.OrderModel;
 import com.lsl.query.OrderModelQuery;
 import com.lsl.service.OrderModelService;
+import com.lsl.service.SupplierService;
 import com.lsl.utils.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class OrderModelAction extends BaseAction {
 	
+	private SupplierService supplierService;
+	
 	private OrderModel order = new OrderModel();
 
 	private OrderModelService orderModelService;
 	
+	
+	public SupplierService getSupplierService() {
+		return supplierService;
+	}
+
+	public void setSupplierService(SupplierService supplierService) {
+		this.supplierService = supplierService;
+	}
+
 	public OrderModel getOrder() {
 		return order;
 	}
@@ -50,6 +62,7 @@ public class OrderModelAction extends BaseAction {
 	}
 
 	public String orderModel_input(){
+		ActionContext.getContext().put("suppliers", supplierService.list());
 		return super.SUCCESS;
 	}
 	

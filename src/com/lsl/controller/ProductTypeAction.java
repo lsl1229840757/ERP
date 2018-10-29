@@ -1,11 +1,14 @@
 package com.lsl.controller;
 import java.util.List;
+import java.util.Set;
 
+import com.lsl.model.Product;
 import com.lsl.model.ProductType;
 import com.lsl.model.Supplier;
 import com.lsl.query.ProductTypeQuery;
 import com.lsl.service.ProductTypeService;
 import com.lsl.service.SupplierService;
+import com.lsl.utils.JsonArrayUtils;
 import com.lsl.utils.Page;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -82,5 +85,10 @@ public class ProductTypeAction extends BaseAction {
 	public void ajax_productType_add () throws Exception{
 		productTypeService.save(productType);
 		response.getWriter().print("success");
+	}
+	public void ajax_productType_getProduct() throws Exception{
+		ProductType pt = productTypeService.getObjById(query.getProductTypeId());
+		Set<Product> products = pt.getProducts();
+		JsonArrayUtils.getProductsBySupplier(response, products, new String[]{"products","supplier"}); //≈≈≥˝¿¡º”‘ÿµƒ Ù–‘∑¿÷πjsonArr◊™ªª ß∞‹
 	}
 }

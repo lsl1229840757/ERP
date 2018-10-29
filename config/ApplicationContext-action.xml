@@ -26,6 +26,7 @@
   </bean>  
   <bean id="orderModelAction" class="com.lsl.controller.OrderModelAction" scope="prototype"> 
     <property name="orderModelService" ref="orderModelService"/> 
+    <property name="supplierService" ref="supplierService"/> 
   </bean>  
   <bean id="orderDetailAction" class="com.lsl.controller.OrderDetailAction" scope="prototype">
     <property name="orderDetailService" ref="orderDetailService"/>
