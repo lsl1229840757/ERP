@@ -2,8 +2,40 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../../taglibs.jsp" %>
 <script type="text/javascript">
+	
+	
+	function syntronizeTrTotal(trObj){
+		
+		var price = parseInt(trObj.find(".prices").val());	
+		var num = parseInt(trObj.find(".num").val());
+		var trPrice = trObj.find(".total");
+		trPrice.html(num*price+"&nbsp元");
+		trPrice.attr("trPrice",num*price);
+	}
+	
+	function syntronizeAllTotal(trObj){
+		var table = trObj.parent();
+		var totalPrice = 0;
+		table.find(".total").each(function(){
+			var trPrice = parseInt($(this).attr("trPrice"));
+			totalPrice += trPrice;
+		});
+		table.find(".all").html(totalPrice+"&nbsp元");
+	}
+
+
 	//修改供应商
 	$(function() {
+		$(".num").blur(function(){
+			var trObj = $(this).parent().parent();		
+			syntronizeTrTotal(trObj);
+			syntronizeAllTotal(trObj);
+		});
+		$(".prices").blur(function(){
+			var trObj = $(this).parent().parent();		
+			syntronizeTrTotal(trObj);
+			syntronizeAllTotal(trObj);
+		});
 		//添加add点击事件
 		$("#add").click(function(){
 			var tr = $("#defaultTr").clone(true);//带事件的克隆
@@ -48,6 +80,28 @@
 			if(count==2){
 				Dialog.alert("该商品已经存在！");
 				$(this).find("[value="+nowProductId+"]").remove();
+			}else{
+			//正常情急
+			var trObj = $(this).parent().parent();
+			//发送ajax请求价格
+					$.ajax({
+				url:"${path}/ajax_product_getProduct",
+				data:{
+					"query.productId" : nowProductId
+				},
+				type:"post",
+				dataType:"json",
+				async: false,
+				success:function(jsonObj){
+					trObj.find(".prices").val(jsonObj.inPrice);
+					syntronizeTrTotal(trObj);
+					syntronizeAllTotal(trObj);
+				},
+				error:function(jsonArr){
+					alert("XmlRequest Error!");
+				}
+			});		
+			
 			}
 		});
 		$(".goodsType").change(function(){
@@ -131,7 +185,7 @@
 						</td>
 						<td><input name="nums" class="num order_num" style="width:67px;border:1px solid black;text-align:right;padding:2px" type="text" value="1"/></td>
 						<td><input name="prices" class="prices order_num" style="width:93px;border:1px solid black;text-align:right;padding:2px" type="text" value="100"/> 元</td>
-						<td class="total" align="right">100.00&nbsp;元</td>
+						<td class="total" trPrice="100" align="right">100.00&nbsp;元</td>
 						<td>
 							<a class="deleteBtn delete xiu" value="4"><img src="${path}/images/icon_04.gif" /> 删除</a>
 						</td>

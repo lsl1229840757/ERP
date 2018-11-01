@@ -12,6 +12,8 @@ import com.lsl.utils.JsonArrayUtils;
 import com.lsl.utils.Page;
 import com.opensymphony.xwork2.ActionContext;
 
+import net.sf.json.util.JSONUtils;
+
 public class ProductAction extends BaseAction {
 	
 	private Product product;
@@ -85,6 +87,10 @@ public class ProductAction extends BaseAction {
 	public void ajax_product_add() throws Exception{
 		productService.save(product);
 		response.getWriter().print("success");
+	}
+	public void ajax_product_getProduct() throws Exception{
+		Product pro = productService.getObjById(query.getProductId());
+		JsonArrayUtils.getObjJson(response, pro, new String[]{"productType"});
 	}
 	
 }
