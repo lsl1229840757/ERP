@@ -1,13 +1,65 @@
 package com.lsl.controller;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.lsl.model.Emp;
+import com.lsl.model.OrderDetail;
 import com.lsl.model.OrderModel;
 import com.lsl.query.OrderModelQuery;
 import com.lsl.service.OrderModelService;
+import com.lsl.service.ProductService;
 import com.lsl.service.SupplierService;
+import com.lsl.utils.ERPConstant;
 import com.lsl.utils.Page;
 import com.opensymphony.xwork2.ActionContext;
 
 public class OrderModelAction extends BaseAction {
 	
+	/**
+	 * 接受订单的参数
+	 */
+	
+	private Integer[] productId;
+	private Double[] detailPrice;
+	private Integer[] detailNum;
+	private Integer[] productType;
+	private ProductService productService;
+	
+	public Integer[] getProductType() {
+		return productType;
+	}
+
+	public void setProductType(Integer[] productType) {
+		this.productType = productType;
+	}
+
+	public Integer[] getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Integer[] productId) {
+		this.productId = productId;
+	}
+
+	public Double[] getDetailPrice() {
+		return detailPrice;
+	}
+
+	public void setDetailPrice(Double[] detailPrice) {
+		this.detailPrice = detailPrice;
+	}
+
+	public Integer[] getDetailNum() {
+		return detailNum;
+	}
+
+	public void setDetailNum(Integer[] detailNum) {
+		this.detailNum = detailNum;
+	}
+
 	private SupplierService supplierService;
 	
 	private OrderModel order = new OrderModel();
@@ -69,6 +121,49 @@ public class OrderModelAction extends BaseAction {
 	public String orderModel_orderDetails(){
 		order = orderModelService.getObjById(query.getOrderId());
 		return SUCCESS;
+	}
+	public void ajax_orderModel_submitOrder(){
+		// 完成参数的组装
+		OrderModel order = new OrderModel();
+		Date now = new Date();
+		order.setOrderNum(new SimpleDateFormat("yyyyMMddHHmmssSSS").format(now));
+		Emp emp = (Emp)ActionContext.getContext().getSession().get("user");
+		order.setCreatorEmp(emp);
+		order.setCreateTime(now);
+		order.setOrderType(Integer.valueOf(ERPConstant.ORDER_TYPE_BUY));
+		order.setOrderState(Integer.valueOf(ERPConstant.ORDER_TYPE_BUY_AUDIT));
+		Integer totalNum = 0;
+		double totalPrice = 0;
+		Set<OrderDetail> ods = new HashSet<OrderDetail>();
+		for(int i = 0;i < productType.length;i++){
+			OrderDetail od = new OrderDetail();
+			totalNum += detailNum[i];
+			totalPrice += detailNum[i] * detailPrice[i];
+			od.setDetailNum(detailNum[i]);
+			od.setDetailPrice(detailPrice[i]);
+			od.setProduct(productService.getObjById(productId[i]));
+			// 这里设置了一对多的关系就不需要再设置订单的Id了,但是需要在orderModel的关系映射中设置级联操作
+			ods.add(od);
+		}	
+		order.setDetails(ods);
+		order.setTotalNum(totalNum);
+		order.setTotalPrice(totalPrice);
+		order.setSupplier(supplierService.getObjById(this.order.getSupplierId()));
+		if(orderModelService.saveOrderMOdel(order)){
+			try {
+				response.getWriter().write("success");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public ProductService getProductService() {
+		return productService;
+	}
+
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
 	}
 	
 }

@@ -11,7 +11,7 @@ public class OrderModelDaoImpl extends BaseDaoImpl<OrderModel, OrderModelQuery> 
 	@Override
 	public String getHql(OrderModelQuery q) {
 		String hql = "from OrderModel d where 1=1";
-		hql = createHqlCondition(hql, q);
+		hql = createHqlCondition(hql, q)+" order by d.orderId desc";
 		return hql;
 	}
 

@@ -14,4 +14,12 @@ public class OrderModelServiceImpl extends BaseServiceImpl<OrderModel, OrderMode
 		//当我们使用公用的dao的时候必须要一个具体的dao赋值给baseDao
 		this.baseDao = orderModelDao;
 	}
+	
+	public boolean saveOrderMOdel(OrderModel order){
+		if(order!=null){
+			orderModelDao.saveObj(order);
+			return true;
+		}
+		return false;
+	}
 }

@@ -45,7 +45,7 @@
         </property>
         <many-to-one name="supplier" class="com.lsl.model.Supplier" column="supplier_id"></many-to-one>
         <many-to-one name="creatorEmp" class="com.lsl.model.Emp" column="creater"></many-to-one>
-        <set name="details" table="order_detail">
+        <set name="details" table="order_detail" cascade="save-update">
         	<key column="order_id"></key>
         	<one-to-many class="com.lsl.model.OrderDetail"/>
         </set>

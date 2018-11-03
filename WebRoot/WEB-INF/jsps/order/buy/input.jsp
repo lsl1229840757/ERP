@@ -5,7 +5,6 @@
 	
 	
 	function syntronizeTrTotal(trObj){
-		
 		var price = parseInt(trObj.find(".prices").val());	
 		var num = parseInt(trObj.find(".num").val());
 		var trPrice = trObj.find(".total");
@@ -22,31 +21,11 @@
 		});
 		table.find(".all").html(totalPrice+"&nbsp元");
 	}
-
-
-	//修改供应商
-	$(function() {
-		$(".num").blur(function(){
-			var trObj = $(this).parent().parent();		
-			syntronizeTrTotal(trObj);
-			syntronizeAllTotal(trObj);
-		});
-		$(".prices").blur(function(){
-			var trObj = $(this).parent().parent();		
-			syntronizeTrTotal(trObj);
-			syntronizeAllTotal(trObj);
-		});
-		//添加add点击事件
-		$("#add").click(function(){
-			var tr = $("#defaultTr").clone(true);//带事件的克隆
-			tr.find(".goods").empty();
-			$("#finalTr").before(tr);
-		});
-	
-		$("#supplierSelect").change(function(){
-			var pro = $("#defaultTr").find(".goodsType"); //此处存在bug
+		//加载商品类别
+		function loadPtType(trObj){
+				//二级联动发送ajax
+			var pro = trObj.find(".goodsType");	
 			pro.empty();
-			//二级联动发送ajax
 			$.ajax({
 				url:"${path}/ajax_product_changeSupplier",
 				data:{
@@ -57,58 +36,17 @@
 				async: false,
 				success:function(jsonArr){
 					for(i = 0;i<jsonArr.length;i++){
-					pro.append("<option value='"+jsonArr[i].productTypeId+"'>"+jsonArr[i].name+"</option>")
+						pro.append("<option value='"+jsonArr[i].productTypeId+"'>"+jsonArr[i].name+"</option>")
 					}
 				},
-				error:function(jsonArr){
-					alert("XmlRequest Error!");
-				}
 			});
-			$(this).attr("disabled","diabled");
-		});
-		
-		$(".goods").change(function(){
-			var tableObj = $(this).parent().parent().parent();
-			var nowProductId = $(this).val();
-			//注意这里tableObj在find之后 也会把自己找到
-			var count = 0; 
-			tableObj.find(".goods").each(function(){
-				if(nowProductId==$(this).val()){
-					count++;
-				}
-			});
-			if(count==2){
-				Dialog.alert("该商品已经存在！");
-				$(this).find("[value="+nowProductId+"]").remove();
-			}else{
-			//正常情急
-			var trObj = $(this).parent().parent();
-			//发送ajax请求价格
-					$.ajax({
-				url:"${path}/ajax_product_getProduct",
-				data:{
-					"query.productId" : nowProductId
-				},
-				type:"post",
-				dataType:"json",
-				async: false,
-				success:function(jsonObj){
-					trObj.find(".prices").val(jsonObj.inPrice);
-					syntronizeTrTotal(trObj);
-					syntronizeAllTotal(trObj);
-				},
-				error:function(jsonArr){
-					alert("XmlRequest Error!");
-				}
-			});		
-			
-			}
-		});
-		$(".goodsType").change(function(){
-			var trObj = $(this).parent().parent();
-			var pro = trObj.find(".goods");
-			pro.empty();
-			//二级联动发送ajax
+			loadPt(trObj);
+		}
+		// 加载商品
+		function loadPt(trObj){
+		    var pro = trObj.find(".goods");
+		    pro.empty();
+		    //二级联动发送ajax
 			$.ajax({
 				url:"${path}/ajax_productType_getProduct",
 				data:{
@@ -132,11 +70,113 @@
 							pro.append("<option value='"+jsonArr[i].productId+"'>"+jsonArr[i].name+"</option>");
 						}
 					}
+					loadPtDetail(trObj);
 				},
-				error:function(){
-					alert("XmlRequest Error!");
+			});
+		}
+		//加载商品的详细信息
+		function loadPtDetail(trObj){
+			var theSelect = trObj.find(".goods"); 
+			var tableObj = trObj.parent();
+			var nowProductId = theSelect.val();
+			//注意这里tableObj在find之后 也会把自己找到
+			var count = 0; 
+			tableObj.find(".goods").each(function(){
+				if(nowProductId==$(this).val()){
+					count++;
 				}
 			});
+			if(count==2){
+				Dialog.alert("该商品已经存在！");
+				theSelect.find("[value="+nowProductId+"]").remove();
+			}else{
+			//正常情况
+			//发送ajax请求价格
+			$.ajax({
+				url:"${path}/ajax_product_getProduct",
+				data:{
+					"query.productId" : nowProductId
+				},
+				type:"post",
+				dataType:"json",
+				async: false,
+				success:function(jsonObj){
+					trObj.find(".prices").val(jsonObj.inPrice);
+					syntronizeTrTotal(trObj);
+					syntronizeAllTotal(trObj);
+				},
+			});		
+			}
+		}
+
+	function submitOrder(){
+		//这里不能直接使用表单提交,使用ajax提交表单
+		var result = "";
+		$("form:first").ajaxSubmit({
+			async:false,
+			dataType:"text",
+			success:function(responseText){
+				//后台添加成功就返回success
+				result = responseText;
+			},
+			error:function(responseText){
+				console.log(responseText);
+			}
+		});
+		return result;
+	}
+
+
+	//修改供应商
+	$(function() {
+		//删除事件注册,这里第一行是无法删除的
+		$(".deleteBtn").click(function(){
+			var trObj = $(this).parent().parent();
+			if(trObj.attr("id") != "defaultTr"){
+				var prev = trObj.prev();
+				trObj.remove();
+				syntronizeAllTotal(prev);
+			}else{
+				Dialog.alert("第一行无法删除!");			
+			}
+		});
+	
+		$(".num").keyup(function(){
+			var trObj = $(this).parent().parent();		
+			syntronizeTrTotal(trObj);
+			syntronizeAllTotal(trObj);
+		});
+		$(".prices").keyup(function(){
+			var trObj = $(this).parent().parent();		
+			syntronizeTrTotal(trObj);
+			syntronizeAllTotal(trObj);
+		});
+		//添加add点击事件
+		$("#add").click(function(){
+			var tr = $("#defaultTr").clone(true);//带事件的克隆
+			tr.removeAttr("id"); //删除新建的tr的id属性
+			tr.find(".goods").empty();
+			tr.find(".prices").attr("value","");
+		
+			//loadPtType(tr);
+			
+			$("#finalTr").before(tr);
+			loadPtType(tr); // BUG 这里只能放在最后，此时tr才会有父元素
+		});
+	
+		$("#supplierSelect").change(function(){
+			//加载商品Type
+			loadPtType($("#defaultTr"));
+			$(this).attr("disabled","diabled"); //disabled的数据后台是无法接受的
+			$("#supplierIdHiden").val($(this).val());
+		});
+		
+		$(".goods").change(function(){
+			loadPtDetail($(this).parent().parent());
+		});
+		$(".goodsType").change(function(){
+			var trObj = $(this).parent().parent();
+			loadPt(trObj);		
 		});
 	});
 </script>
@@ -147,7 +187,7 @@
 		</div>
 	</div>
 	<div class="content-text">
-		<form action="buyList.jsp" method="post">
+		<form action="${path}/ajax_orderModel_submitOrder" method="post">
 			<div class="square-o-top">
 				<table width="100%" border="0" cellpadding="0" cellspacing="0"
 					style="font-size:14px; font-weight:bold; font-family:"黑体";">
@@ -155,6 +195,7 @@
 						<td width="68px" height="30">供应商：</td>
 						<td width="648px">
 							<s:select id="supplierSelect" headerKey="" headerValue="请选择" list="#suppliers" cssClass="kuan" cssStyle="width:300px;" listKey="supplierId" listValue="name"></s:select>
+							<input id="supplierIdHiden" type="hidden" name="order.supplierId"/><!--  <--后台接受的supplierId--> -->
 						</td>
 						<td height="30">
 							<a id="add"><img src="${path}/images/can_b_02.gif" border="0" /> </a>
@@ -176,15 +217,15 @@
 					</tr>
 					<tr id="defaultTr" align="center" bgcolor="#FFFFFF">
 						<td height="30">
-							<select id="productType" class="goodsType" style="width:200px">
+							<select name="productType" id="productType" class="goodsType" style="width:200px">
 							</select>
 						</td>
 						<td>
-							<select id="product" class="goods" style="width:200px">
+							<select name="productId" id="product" class="goods" style="width:200px">
 							</select>
 						</td>
-						<td><input name="nums" class="num order_num" style="width:67px;border:1px solid black;text-align:right;padding:2px" type="text" value="1"/></td>
-						<td><input name="prices" class="prices order_num" style="width:93px;border:1px solid black;text-align:right;padding:2px" type="text" value="100"/> 元</td>
+						<td><input name="detailNum" class="num order_num" style="width:67px;border:1px solid black;text-align:right;padding:2px" type="text" value="1"/></td>
+						<td><input name="detailPrice" class="prices order_num" style="width:93px;border:1px solid black;text-align:right;padding:2px" type="text" value="100"/> 元</td>
 						<td class="total" trPrice="100" align="right">100.00&nbsp;元</td>
 						<td>
 							<a class="deleteBtn delete xiu" value="4"><img src="${path}/images/icon_04.gif" /> 删除</a>
@@ -197,22 +238,6 @@
 						<td>&nbsp;</td>
 					</tr>
 				</table>
-				<div class="order-botton">
-				<div style="margin:1px auto auto 1px;">
-					<table width="100%"  border="0" cellpadding="0" cellspacing="0">
-					  <tr>
-					    <td>
-					    	<a href="javascript:void(0)" id="submitOrder"><img src="${path}/images/order_tuo.gif" border="0" /></a>
-					    </td>
-					    <td>&nbsp;</td>
-					    <td><a href="#"><img src="${path}/images/order_tuo.gif" border="0" /></a></td>
-					    <td>&nbsp;</td>
-					    <td><a href="#"><img src="${path}/images/order_tuo.gif" border="0" /></a></td>
-					  </tr>
-					</table>
-				</div>
-			</div>
-			</div>
 		</form>
 	</div>
 	

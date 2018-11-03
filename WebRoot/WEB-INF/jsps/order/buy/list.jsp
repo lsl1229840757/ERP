@@ -24,6 +24,14 @@
 			diag.Title = "下采购";
 			diag.URL = path+"/orderModel_input";
 			diag.OKEvent = function(){
+				//调用子页面的bom对象
+				var bom = diag.innerFrame.contentWindow;
+				//提交表单,加验证			
+				if(bom.submitOrder()=="success"){
+					//提交表单成功!
+					diag.close();
+					window.location.href = "${path}/orderModel_list?query.orderType=1&query.orderState=1";
+				}
 			};
 			diag.show();
 		});

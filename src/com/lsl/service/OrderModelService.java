@@ -4,4 +4,5 @@ import com.lsl.model.OrderModel;
 import com.lsl.query.OrderModelQuery;
 
 public interface OrderModelService extends BaseService<OrderModel, OrderModelQuery> {
+	public boolean saveOrderMOdel(OrderModel order);
 }
