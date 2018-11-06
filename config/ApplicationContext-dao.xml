@@ -22,7 +22,10 @@
   <bean id="orderModelDao" class="com.lsl.dao.impl.OrderModelDaoImpl"> 
     <property name="sessionFactory" ref="sessionFactory"/> 
   </bean>  
-  <bean id="orderDetailDao" class="com.lsl.dao.impl.OrderDetailDaoImpl">
+  <bean id="orderDetailDao" class="com.lsl.dao.impl.OrderDetailDaoImpl"> 
+    <property name="sessionFactory" ref="sessionFactory"/> 
+  </bean>  
+  <bean id="consoleLogDao" class="com.lsl.dao.impl.ConsoleLogDaoImpl">
     <property name="sessionFactory" ref="sessionFactory"/>
   </bean>
 </beans>

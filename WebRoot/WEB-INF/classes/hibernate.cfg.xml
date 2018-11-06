@@ -16,6 +16,7 @@
 	<mapping resource="com/lsl/mapper/Product.hbm.xml" />
 	<mapping resource="com/lsl/mapper/OrderModel.hbm.xml" />
 	<mapping resource="com/lsl/mapper/OrderDetail.hbm.xml" />
+	<mapping resource="com/lsl/mapper/ConsoleLog.hbm.xml" />
 </session-factory>
 
 </hibernate-configuration>

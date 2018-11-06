@@ -22,8 +22,12 @@
   </bean>  
   <bean id="orderModelService" class="com.lsl.service.impl.OrderModelServiceImpl"> 
     <property name="orderModelDao" ref="orderModelDao"/> 
+    <property name="consoleLogDao" ref="consoleLogDao"></property>
   </bean>  
-  <bean id="orderDetailService" class="com.lsl.service.impl.OrderDetailServiceImpl">
-    <property name="orderDetailDao" ref="orderDetailDao"/>
+  <bean id="orderDetailService" class="com.lsl.service.impl.OrderDetailServiceImpl"> 
+    <property name="orderDetailDao" ref="orderDetailDao"/> 
+  </bean>  
+  <bean id="consoleLogService" class="com.lsl.service.impl.ConsoleLogServiceImpl">
+    <property name="consoleLogDao" ref="consoleLogDao"/>
   </bean>
 </beans>

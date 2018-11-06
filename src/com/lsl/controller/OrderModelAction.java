@@ -27,7 +27,16 @@ public class OrderModelAction extends BaseAction {
 	private Integer[] detailNum;
 	private Integer[] productType;
 	private ProductService productService;
+	private String note;
 	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
+
 	public Integer[] getProductType() {
 		return productType;
 	}
@@ -112,6 +121,18 @@ public class OrderModelAction extends BaseAction {
 		
 		return super.SUCCESS;
 	}
+	
+	public String orderModel_checkList(){
+		if(query.getPageNum()==null||query.getPageNum()<=0){
+			query.setPageNum(1);
+		}
+		
+		Page page = orderModelService.queryObjByCondition(query, super.exclude);
+		
+		ActionContext.getContext().put("page", page);
+		
+		return super.SUCCESS;
+	}
 
 	public String orderModel_input(){
 		ActionContext.getContext().put("suppliers", supplierService.list());
@@ -122,6 +143,20 @@ public class OrderModelAction extends BaseAction {
 		order = orderModelService.getObjById(query.getOrderId());
 		return SUCCESS;
 	}
+
+	public String orderModel_auditOrder() throws IOException{
+		return SUCCESS;
+	}
+	
+	public void ajax_orderModel_auditOrderText() throws IOException{
+		/**
+		 * Ajax接收orderText ajax_orderModel_{1}
+		 */
+		Emp checker = (Emp)ActionContext.getContext().getSession().get("user");
+		orderModelService.updateAuditOrder(checker, order, note);
+		response.getWriter().write("success");
+	}
+	
 	public void ajax_orderModel_submitOrder(){
 		// 完成参数的组装
 		OrderModel order = new OrderModel();
@@ -165,5 +200,6 @@ public class OrderModelAction extends BaseAction {
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
+	
 	
 }

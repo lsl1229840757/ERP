@@ -24,6 +24,9 @@ public class EmpServiceImpl extends BaseServiceImpl<Emp,EmpQuery> implements Emp
 	
 	public void setEmpDao(EmpDao empDao) {
 		this.empDao = empDao;
+		/**
+		 * 这里在调用baseService的方法的时候必须要对baseDao实例化
+		 */
 		this.baseDao = empDao;	
 	}
 

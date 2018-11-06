@@ -27,8 +27,26 @@ public class OrderModel implements java.io.Serializable {
 	private Emp creatorEmp;
 	private Supplier supplier;
 	private Set<OrderDetail> details;
+	private Set<ConsoleLog> logs;
+	private Emp checkEmp;
 	
 	// Constructors
+
+	public Set<ConsoleLog> getLogs() {
+		return logs;
+	}
+
+	public void setLogs(Set<ConsoleLog> logs) {
+		this.logs = logs;
+	}
+
+	public Emp getCheckEmp() {
+		return checkEmp;
+	}
+
+	public void setCheckEmp(Emp checkEmp) {
+		this.checkEmp = checkEmp;
+	}
 
 	public Set<OrderDetail> getDetails() {
 		return details;

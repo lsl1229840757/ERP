@@ -25,11 +25,14 @@
     <property name="supplierService" ref="supplierService"/> 
   </bean>  
   <bean id="orderModelAction" class="com.lsl.controller.OrderModelAction" scope="prototype"> 
-    <property name="orderModelService" ref="orderModelService"/> 
-    <property name="supplierService" ref="supplierService"/> 
-    <property name="productService" ref="productService"></property>
+    <property name="orderModelService" ref="orderModelService"/>  
+    <property name="supplierService" ref="supplierService"/>  
+    <property name="productService" ref="productService"/> 
   </bean>  
-  <bean id="orderDetailAction" class="com.lsl.controller.OrderDetailAction" scope="prototype">
-    <property name="orderDetailService" ref="orderDetailService"/>
+  <bean id="orderDetailAction" class="com.lsl.controller.OrderDetailAction" scope="prototype"> 
+    <property name="orderDetailService" ref="orderDetailService"/> 
+  </bean>  
+  <bean id="consoleLogAction" class="com.lsl.controller.ConsoleLogAction" scope="prototype">
+    <property name="consoleLogService" ref="consoleLogService"/>
   </bean>
 </beans>

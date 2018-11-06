@@ -66,7 +66,7 @@
 								<td><a class="hei" target="main" >&nbsp;&nbsp;&nbsp;&nbsp;采购退货</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main" href="order/buy/buyCheckList.jsp">&nbsp;&nbsp;&nbsp;&nbsp;采购审批</a></td>
+								<td><a class="hei" target="main"  href="${path }/orderModel_checkList?query.orderType=1&query.orderState=1">&nbsp;&nbsp;&nbsp;&nbsp;采购审批</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="#">销售管理</a></td>
@@ -78,7 +78,7 @@
 								<td><a class="hei" target="main">&nbsp;&nbsp;&nbsp;&nbsp;销售退货</a></td>
 							</tr>
 							<tr>
-								<td><a class="hei" target="main">&nbsp;&nbsp;&nbsp;&nbsp;销售审批</a></td>
+								<td><a class="hei" target="main" >&nbsp;&nbsp;&nbsp;&nbsp;销售审批</a></td>
 							</tr>
 							<tr>
 								<td><a class="hei" target="main" href="#">商品运输</a></td>
