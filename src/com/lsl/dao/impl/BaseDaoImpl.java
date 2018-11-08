@@ -151,4 +151,17 @@ public abstract class BaseDaoImpl<T,Q> extends HibernateDaoSupport implements Ba
 		 totalCount = (Long) query.uniqueResult();
 		return totalCount;
 	}
+	
+	public List<T> queryObjByConditionNoPage(Q q,List<String> exclude){
+		List<T> lists = new ArrayList<T>();
+		//这里是为了不让where多出来
+		String hql = getHql(q);
+		Session session = this.getHibernateTemplate().getSessionFactory().getCurrentSession();
+		Query query = session.createQuery(hql);	
+		//动态地设置参数
+		setDynamicParam(query,q,exclude);
+		lists = query.list();
+		return lists;
+	}
+	
 }

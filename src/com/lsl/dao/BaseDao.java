@@ -23,6 +23,8 @@ public interface BaseDao<T,Q> {
 	public void deleteObj(T t);
 	
 	public List<T> queryObjByCondition(Q q,List<String> exclude);
+
+	public List<T> queryObjByConditionNoPage(Q q,List<String> exclude);
 	
 	public Long queryObjCountByCondition(Q q,List<String> exclude);
 	

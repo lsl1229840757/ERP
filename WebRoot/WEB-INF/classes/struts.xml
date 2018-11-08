@@ -56,6 +56,10 @@
 		<action name="role_*" class="roleAction" method="role_{1}">
 			<result name="success">/WEB-INF/jsps/role/{1}.jsp</result>
 		</action>	
+		
+		<action name="consoleLog_*" class="consoleLogAction" method="consoleLog_{1}">
+			<result name="success">/WEB-INF/jsps/log/{1}.jsp</result>
+		</action>	
 		<action name="ajax_emp_*" class="empAction" method="ajax_emp_{1}"/>
 		<action name="ajax_orderModel_*" class="orderModelAction" method="ajax_orderModel_{1}"/>
 		<action name="ajax_productType_*" class="productTypeAction" method="ajax_productType_{1}">

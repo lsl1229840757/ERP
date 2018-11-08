@@ -18,4 +18,6 @@ public interface BaseService<T,Q> {
 	
 	public List<T> list();
 	
+	public List<T> queryObjByConditionNoPage(Q q,List<String> exclude);
+	
 }

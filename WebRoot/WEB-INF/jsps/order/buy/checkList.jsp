@@ -19,13 +19,20 @@
 
 	function viewDetails(orderId){
 		var diag = new Dialog();
-			diag.Width = 850;
-			diag.Height = 450;
-			diag.Title = "订单明细";
-			diag.URL = path+"/orderModel_orderDetails?query.orderId="+orderId;
-			diag.OKEvent = function(){
-			};
-			diag.show();
+		diag.Width = 850;
+		diag.Height = 450;
+		diag.Title = "订单明细";
+		diag.URL = path+"/orderModel_orderDetails?query.orderId="+orderId;
+		diag.OKEvent = function(){
+			var diag1 = new Dialog();
+			diag1.Width = 850;
+			diag1.Height = 300;
+			diag1.Title = "订单明细";
+			diag1.URL = path+"/consoleLog_consoleLog?query.entityId="+orderId+"&query.tableName=order_model&query.optType=审核订单";
+			diag1.show();
+		};
+		diag.show();
+		diag.okButton.value = "操作日志";
 	}
 
 	function audiOrder(orderId) {

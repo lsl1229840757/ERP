@@ -12,6 +12,7 @@ public class BaseServiceImpl<T,Q> implements BaseService<T,Q> {
 
 	public BaseDao<T,Q> baseDao;
 	
+	
 	@Override
 	public void save(T t) {
 		baseDao.saveObj(t);
@@ -66,6 +67,11 @@ public class BaseServiceImpl<T,Q> implements BaseService<T,Q> {
 			e.printStackTrace();
 		}
 		return page;
+	}
+
+	@Override
+	public List<T> queryObjByConditionNoPage(Q q, List<String> exclude) {
+		return baseDao.queryObjByConditionNoPage(q, exclude);
 	}
 	
 }

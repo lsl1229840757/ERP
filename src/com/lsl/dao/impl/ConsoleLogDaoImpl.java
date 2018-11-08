@@ -11,20 +11,19 @@ public class ConsoleLogDaoImpl extends BaseDaoImpl<ConsoleLog, ConsoleLogQuery> 
 	@Override
 	public String getHql(ConsoleLogQuery q) {
 		String hql = "from ConsoleLog d where 1=1";
-	
+		hql = createHqlCondition(hql, q);
 		return hql;
 	}
 
 	@Override
 	public String getHqlCount(ConsoleLogQuery q) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public String createHqlCondition(String hql, ConsoleLogQuery q) {
-		// TODO Auto-generated method stub
-		return null;
+		hql += " and d.tableName like :tableName and d.optType like :optType and d.entityId = :entityId";
+		return hql;
 	}
 
 }

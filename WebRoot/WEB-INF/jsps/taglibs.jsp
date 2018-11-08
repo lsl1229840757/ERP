@@ -15,9 +15,9 @@
 	var path = "${path }";
 </script>
 <script type="text/javascript" src="${path }/js/jquery-1.8.3.js"></script>
+<script type="text/javascript" src="${path }/js/Calendar.js"></script>
 <script type="text/javascript" src="${path }/js/jquery.form.js"></script>
 <!-- 引入calendar的js -->
-<script type="text/javascript" src="${path }/js/Calendar.js"></script>
 <script type="text/javascript" src="${path }/js/zdialog/zDialog.js"></script>
 <script type="text/javascript" src="${path }/js/zdialog/zDrag.js"></script>
 </head>
