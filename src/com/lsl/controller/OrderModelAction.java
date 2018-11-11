@@ -3,11 +3,13 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.lsl.model.Emp;
 import com.lsl.model.OrderDetail;
 import com.lsl.model.OrderModel;
+import com.lsl.model.Supplier;
 import com.lsl.query.OrderModelQuery;
 import com.lsl.service.OrderModelService;
 import com.lsl.service.ProductService;
@@ -201,5 +203,11 @@ public class OrderModelAction extends BaseAction {
 		this.productService = productService;
 	}
 	
+	public String orderModel_updateOrder(){
+		order = orderModelService.getObjById(query.getOrderId());
+		List<Supplier> suppliers = supplierService.list();
+		ActionContext.getContext().put("suppliers", suppliers);
+		return SUCCESS;
+	}
 	
 }

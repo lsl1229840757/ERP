@@ -80,24 +80,23 @@
 					</tr>
 						<s:iterator value="#page.list" var="p">
 							<tr align="center" bgcolor="#FFFFFF">
-							
-							<td width="13%" height="30"><s:property value="#p.productType.supplier.name"/></td>
-							<td><s:property value="#p.name"/></td>
-							<td><s:property value="#p.producer"/></td>
-							<td><s:property value="#p.origin"/></td>
-							<td align="right"><s:property value="#p.inPrice"/>&nbsp;元&nbsp;</td>
-							<td align="right"><s:property value="#p.outPrice"/>&nbsp;元&nbsp;</td>
-							<td><s:property value="#p.unit"/></td>
-							<td>
-								<img src="${path}/images/icon_3.gif"/> 
-								<span style="line-height:12px; text-align:center;"> 
-									<a href="./input.jsp" class="xiu">修改</a> 
-								</span> 
-								<img src="${path}/images/icon_04.gif" /> 
-								<span style="line-height:12px; text-align:center;"> 
-									<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
-								</span>
-							</td>
+								<td width="13%" height="30"><s:property value="#p.productType.supplier.name"/></td>
+								<td><s:property value="#p.name"/></td>
+								<td><s:property value="#p.producer"/></td>
+								<td><s:property value="#p.origin"/></td>
+								<td align="right"><s:property value="#p.inPrice"/>&nbsp;元&nbsp;</td>
+								<td align="right"><s:property value="#p.outPrice"/>&nbsp;元&nbsp;</td>
+								<td><s:property value="#p.unit"/></td>
+								<td>
+									<img src="${path}/images/icon_3.gif"/> 
+									<span style="line-height:12px; text-align:center;"> 
+										<a href="./input.jsp" class="xiu">修改</a> 
+									</span> 
+									<img src="${path}/images/icon_04.gif" /> 
+									<span style="line-height:12px; text-align:center;"> 
+										<a href="javascript:void(0)" class="xiu" onclick="showMsg('是否删除该项数据？',318)">删除</a>
+									</span>
+								</td>
 							</tr>
 						</s:iterator>
 				</table>

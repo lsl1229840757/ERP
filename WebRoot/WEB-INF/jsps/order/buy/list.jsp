@@ -38,11 +38,28 @@
 		
 	});
 	function viewDetails(orderId){
-		var diag = new Dialog();
+			var diag = new Dialog();
 			diag.Width = 850;
 			diag.Height = 450;
 			diag.Title = "订单明细";
 			diag.URL = path+"/orderModel_orderDetails?query.orderId="+orderId;
+			diag.OKEvent = function(){
+				var diag1 = new Dialog();
+				diag1.Width = 850;
+				diag1.Height = 300;
+				diag1.Title = "订单明细";
+				diag1.URL = path+"/consoleLog_consoleLog?query.entityId="+orderId+"&query.tableName=order_model&query.optType=审核订单";
+				diag1.show();
+			};
+			diag.show();
+			diag.okButton.value = "操作日志";
+	}
+	function updateDetails(orderId){
+		var diag = new Dialog();
+			diag.Width = 850;
+			diag.Height = 450;
+			diag.Title = "订单明细";
+			diag.URL = path+"/orderModel_updateOrder?query.orderId="+orderId;
 			diag.OKEvent = function(){
 				var diag1 = new Dialog();
 				diag1.Width = 850;
@@ -128,11 +145,10 @@ li{
 						<td width="25%" height="30">订单号</td>
 						<td width="9%">供应商</td>
 						<td width="10%">制单人</td>
-						<td width="20%">制单时间</td>
+						<td width="10%">制单时间</td>
 						<td width="10%">订单商品总量</td>
 						<td width="12%">订单总金额</td>
-						<td width="5%">详情</td>
-						<td width="9%">订单状态</td>
+						<td width="15%">详情</td>
 					</tr>
 					
 					<s:iterator value="#page.list" var="order">
@@ -145,8 +161,10 @@ li{
 							<td align="right"><s:property value="#order.totalPrice"/>元</td>
 							<td>
 								<a href="#" onclick="viewDetails(<s:property value="#order.orderId"/>)" class="xiu">详情</a>
+								<s:if test="#order.orderState==3">
+									<a href="#" onclick="updateDetails(<s:property value="#order.orderId"/>)" class="xiu">修改</a>
+								</s:if>
 							</td>
-							<td>未审核</td>
 						</tr>
 					</s:iterator>
 					<%@include file="../../tools/paging.jsp" %>
